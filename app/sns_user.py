@@ -6,7 +6,7 @@ from functools import wraps
 USER_LOGIN_LIST = {
     'kei': "jisei",
     'kin○-○○u':'gue',
-    'hi○○zaka': '46',
+    'hi○○z○ka': '46',
     'nao○○-○e○nin': '3',
     'taro': 'aaa',
     'jiro': 'bbb',
