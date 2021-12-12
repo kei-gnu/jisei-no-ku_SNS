@@ -7,7 +7,7 @@ USER_LOGIN_LIST = {
     'kei': "jisei",
     'kin○-○○u':'gue',
     'hi○○zaka': '46',
-    'naoya-zennin': '3',
+    'nao○○-○e○nin': '3',
     'taro': 'aaa',
     'jiro': 'bbb',
     'sabu': 'ccc',
