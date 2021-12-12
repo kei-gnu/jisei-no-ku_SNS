@@ -2,7 +2,7 @@
 from flask import Flask, session, redirect
 from functools import wraps
 
-# ユーザー名とパスワードの一覧 --- (*1)
+# ユーザー名とパスワードの一覧 
 USER_LOGIN_LIST = {
     'tomita': 'shingeki',
     'king-gnu':'gue',
@@ -14,11 +14,11 @@ USER_LOGIN_LIST = {
     'goro': 'eee', 
     'muro': 'fff' }
 
-# ログインしているかの確認 --- (*2)
+# ログインしているかの確認 
 def is_login():
     return 'login' in session
 
-# ログインを試行する --- (*3)
+# ログインを試行する
 def try_login(form):
     user = form.get('user', '')
     password = form.get('pw', '')
@@ -29,19 +29,19 @@ def try_login(form):
     session['login'] = user
     return True
 
-# ユーザー名を得る --- (*4)
+# ユーザー名を得る 
 def get_id():
     return session['login'] if is_login() else '未ログイン'
 
-# 全ユーザーの情報を得る --- (*5)
+# 全ユーザーの情報を得る 
 def get_allusers():
     return [ u for u in USER_LOGIN_LIST ]
 
-# ログアウトする --- (*6)
+# ログアウトする 
 def try_logout():
     session.pop('login', None)
 
-# ログイン必須を処理するデコレーターを定義 --- (*7)
+# ログイン必須を処理するデコレーターを定義 
 def login_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):

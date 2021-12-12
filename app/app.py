@@ -89,7 +89,7 @@ def linebreak_fiter(s):
          .replace('>', '&gt;').replace('\n', '<br>')
     return Markup(s)
 
-# 日付をフォーマットするフィルタを追加 --- (*15)
+# 日付をフォーマットするフィルタを追加 
 @app.template_filter('datestr')
 def datestr_fiter(s):
     return time.strftime('%Y年%m月%d日',
