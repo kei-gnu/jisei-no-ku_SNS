@@ -24,7 +24,7 @@ def login():
 @app.route('/login/try', methods=['POST']) 
 def login_try():
     ok = user.try_login(request.form)
-    if not ok: return msg('ログインに失敗しました')
+    if not ok: return msg('ログインに失敗しました泣')
     return redirect('/')
 
 @app.route('/logout') 
