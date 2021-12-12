@@ -5,8 +5,8 @@ from functools import wraps
 # ユーザー名とパスワードの一覧 
 USER_LOGIN_LIST = {
     'kei': "jisei",
-    'king-gnu':'gue',
-    'hinatazaka': '46',
+    'kin○-○○u':'gue',
+    'hi○○zaka': '46',
     'naoya-zennin': '3',
     'taro': 'aaa',
     'jiro': 'bbb',
