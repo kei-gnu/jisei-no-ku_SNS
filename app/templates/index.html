@@ -21,13 +21,13 @@
 
 {# タイムラインを表示 #}
 <h3>{{ id }}のタイムライン</h3>
-<div class="haiku-list">
+<div class="jisei-list">
 {% if timelines | length == 0 %}
   <div class="box">タイムラインに作品がありません。
   辞世の句を書くか他のユーザーをお気に入りにしてください。</div>
 {% endif %}
 {% for i in timelines %}
-  <div class="haiku">
+  <div class="jisei">
     {{ i.text | linebreak }}
     <p class="info">
       {{ i.time | datestr }}

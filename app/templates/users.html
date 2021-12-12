@@ -1,13 +1,13 @@
 {% extends "layout_login.html" %}
 
-{# ユーザー個別ページなのでタイトルも変更 --- (*1) #}
+{# ユーザー個別ページなのでタイトルも変更 #}
 {% block title %}
   {{ user_id }}さんの俳句ページ
 {% endblock %}
 
 {% block contents %}
 
-{# お気に入り登録有無と登録解除リンク --- (*2) #}
+{# お気に入り登録有無と登録解除リンク #}
 <div class="box_c">
   {% if is_fav %}
     👍 <a class="pure-button"
@@ -21,7 +21,7 @@
 
 <h3>作品</h3>
 
-{# 作品一覧を表示 --- (*3) #}
+{# 作品一覧を表示 --- #}
 {% if text_list | length == 0 %}
   作品はまだありません。
 {% endif %}
