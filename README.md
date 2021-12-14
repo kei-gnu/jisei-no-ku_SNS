@@ -4,3 +4,8 @@
 
 とても好きな漫画です。
 ![image](https://user-images.githubusercontent.com/61653118/145732110-6e2cbd6b-f0e0-4277-8d20-21fe19308671.png)
+
+起動は以下のコマンドを打ちます。
+```
+docker-compose up -d
+```
