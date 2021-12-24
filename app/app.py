@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, jsonify
 from flask import request, Markup
 import os, time
 import sns_user as user, sns_data as data
@@ -16,6 +16,12 @@ def index():
             users=user.get_allusers(),
             fav_users=data.get_fav_list(me),
             timelines=data.get_timelines(me))
+
+@app.route("/api/v1/hello")
+def hello():
+    return jsonify({
+        "message": "Hello World!"
+    })
 
 @app.route('/login') 
 def login():
@@ -96,4 +102,5 @@ def datestr_fiter(s):
     time.localtime(s))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    # app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run()
