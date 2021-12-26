@@ -30,7 +30,7 @@ def login():
 @app.route('/login/try', methods=['POST']) 
 def login_try():
     ok = user.try_login(request.form)
-    if not ok: return msg('ログインに失敗しました泣')
+    if not ok: return msg('ログインに失敗しました泣-test')
     return redirect('/')
 
 @app.route('/logout') 
@@ -102,5 +102,5 @@ def datestr_fiter(s):
     time.localtime(s))
 
 if __name__ == '__main__':
-  #  app.run(debug=True, host='0.0.0.0', port=5000)
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=5000)
+    # app.run()
