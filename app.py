@@ -22,7 +22,17 @@ def dated_url_for(endpoint, **values):
                                     endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
-
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    user = User(username=username, password=password, email=email)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({
+        'response': 'User ' + username + ' created successfully'
+    })
 # --- URLのルーティング 
 @app.route('/') 
 @user.login_required
@@ -43,11 +53,6 @@ def login_try():
     if not ok: return msg('ログインに失敗しました泣')
     return redirect('/')
 
-@app.route('/logout') 
-def logout():
-    user.try_logout()
-    return msg('ログアウトしました')
-
 @app.route('/users/<user_id>') 
 @user.login_required
 def users(user_id):
@@ -59,57 +64,57 @@ def users(user_id):
             is_fav=data.is_fav(me, user_id),
             text_list=data.get_text(user_id))
 
-@app.route('/fav/add/<user_id>')
-@user.login_required
-def fav_add(user_id):
-    data.add_fav(user.get_id(), user_id)
-    return redirect('/users/' + user_id)
+# @app.route('/fav/add/<user_id>')
+# @user.login_required
+# def fav_add(user_id):
+#     data.add_fav(user.get_id(), user_id)
+#     return redirect('/users/' + user_id)
 
-@app.route('/fav/remove/<user_id>') 
-@user.login_required
-def remove_fav(user_id):
-    data.remove_fav(user.get_id(), user_id)
-    return redirect('/users/' + user_id)
+# @app.route('/fav/remove/<user_id>') 
+# @user.login_required
+# def remove_fav(user_id):
+#     data.remove_fav(user.get_id(), user_id)
+#     return redirect('/users/' + user_id)
 
-@app.route('/write') 
-@user.login_required
-def write():
-    return render_template('write_form.html',
-            id=user.get_id())
+# @app.route('/write') 
+# @user.login_required
+# def write():
+#     return render_template('write_form.html',
+#             id=user.get_id())
 
-@app.route('/write/try', methods=['POST']) 
-@user.login_required
-def try_write():
-    text = request.form.get('text', '')
-    if text == '': return msg('テキストが空です。')
-    data.write_text(user.get_id(), text)
-    return redirect('/')
+# @app.route('/write/try', methods=['POST']) 
+# @user.login_required
+# def try_write():
+#     text = request.form.get('text', '')
+#     if text == '': return msg('テキストが空です。')
+#     data.write_text(user.get_id(), text)
+#     return redirect('/')
 
-def msg(msg):
-    return render_template('msg.html', msg=msg)
+# def msg(msg):
+#     return render_template('msg.html', msg=msg)
 
-# --- テンプレートのフィルタなど拡張機能の指定 
-# CSSなど静的ファイルの後ろにバージョンを自動追記 
-@app.context_processor
-def add_staticfile():
-    return dict(staticfile=staticfile_cp)
-def staticfile_cp(fname):
-    path = os.path.join(app.root_path, 'static', fname)
-    mtime =  str(int(os.stat(path).st_mtime))
-    return '/static/' + fname + '?v=' + str(mtime)
+# # --- テンプレートのフィルタなど拡張機能の指定 
+# # CSSなど静的ファイルの後ろにバージョンを自動追記 
+# @app.context_processor
+# def add_staticfile():
+#     return dict(staticfile=staticfile_cp)
+# def staticfile_cp(fname):
+#     path = os.path.join(app.root_path, 'static', fname)
+#     mtime =  str(int(os.stat(path).st_mtime))
+#     return '/static/' + fname + '?v=' + str(mtime)
 
-# 改行を有効にするフィルタを追加 
-@app.template_filter('linebreak')
-def linebreak_fiter(s):
-    s = s.replace('&', '&amp;').replace('<', '&lt;') \
-         .replace('>', '&gt;').replace('\n', '<br>')
-    return Markup(s)
+# # 改行を有効にするフィルタを追加 
+# @app.template_filter('linebreak')
+# def linebreak_fiter(s):
+#     s = s.replace('&', '&amp;').replace('<', '&lt;') \
+#          .replace('>', '&gt;').replace('\n', '<br>')
+#     return Markup(s)
 
-# 日付をフォーマットするフィルタを追加 
-@app.template_filter('datestr')
-def datestr_fiter(s):
-    return time.strftime('%Y年%m月%d日',
-    time.localtime(s))
+# # 日付をフォーマットするフィルタを追加 
+# @app.template_filter('datestr')
+# def datestr_fiter(s):
+#     return time.strftime('%Y年%m月%d日',
+#     time.localtime(s))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
