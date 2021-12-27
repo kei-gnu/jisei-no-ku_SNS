@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, make_response, jsonify
 from flask import request, Markup
 import os, time
 import sns_user as user, sns_data as data
@@ -6,6 +6,9 @@ import sns_user as user, sns_data as data
 # Flaskインスタンスと暗号化キーの指定
 app = Flask(__name__)
 app.secret_key = 'TIIDe5TUMtPUHpyu'
+
+def custom_error(message, status_code): 
+    return make_response(jsonify(message), status_code)
 
 @app.context_processor
 def override_url_for():
